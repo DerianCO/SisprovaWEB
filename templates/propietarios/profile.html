@@ -1,0 +1,51 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <h1 class="text-center">Bienvenido {{ user.get_username }}</h1>
+    <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Historial de entrada y salida de equipos</div>
+      <div class="panel-body">
+        <p>En la siguiente tabla podras encontrar el historial de entrada y salida de tus equipos, ordenado por fecha de salida.</p>
+      </div>
+
+      <table class="table">
+              {% if context.count > 0 %}
+                  <tr>
+                    <th>Hora Ingreso</th>
+                    <th>Hora Salida</th>
+                    <th>Sede</th>
+                    <th>Elemento</th>
+                  </tr>
+
+                {% for report in context %}
+                    <tr>
+                  <td>{{ report.fecha_hora_ing }}</td>
+                  <td>{{ report.fecha_hora_sal }}</td>
+                  <td>{{ report.sede_rep }}</td>
+                  <td>{{ report.ele_pro }}</td>
+                     </tr>
+                {% endfor %}
+
+
+              {% else %}
+                  <h4 class="text-center">No tienes un historial de ingreso</h4>
+              {% endif %}
+      </table>
+        </div>
+    </div>
+    <div class="col-md-4">
+    <h3>Mis Elementos</h3>
+        {% if elementos.count > 0 %}
+            <ul class="list-group">
+                {% for elemento in elementos %}
+                    <li class="list-group-item">{{ elemento.cod_ele }} - {{ elemento.des_ele }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h4>No tienes elementos registrados</h4>
+        {% endif %}
+
+
+    </div>
+
+{% endblock %}
